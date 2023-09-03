@@ -5,14 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Lab extends Model
+class Mahasiswa extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name',
+        'user_id',
+        'nim',
+        'jurusan',
+        'kelas',
     ];
-    public function items()
+    public function user()
     {
-        return $this->hasMany(Items::class);
+        return $this->belongsTo(User::class);
     }
 }

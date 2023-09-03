@@ -9,15 +9,15 @@
 
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/x-icon" href="./assets/images/favicon/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ url('assets/images/favicon/favicon.ico')}}">
 
     <!-- Libs CSS -->
 
 
-    <link href="./assets/libs/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="./assets/libs/dropzone/dist/dropzone.css" rel="stylesheet">
-    <link href="./assets/libs/@mdi/font/css/materialdesignicons.min.css" rel="stylesheet" />
-    <link href="./assets/libs/prismjs/themes/prism-okaidia.css" rel="stylesheet">
+    <link href="{{ url('assets/libs/bootstrap-icons/font/bootstrap-icons.css')}}" rel="stylesheet">
+    <link href="{{ url('assets/libs/dropzone/dist/dropzone.css')}}" rel="stylesheet">
+    <link href="{{ url('assets/libs/@mdi/font/css/materialdesignicons.min.css')}}" rel="stylesheet" />
+    <link href="{{ url('assets/libs/prismjs/themes/prism-okaidia.min.css')}}" rel="stylesheet">
 
 
 
@@ -27,7 +27,7 @@
 
 
     <!-- Theme CSS -->
-    <link rel="stylesheet" href="./assets/css/theme.min.css">
+    <link rel="stylesheet" href="{{ url('assets/css/theme.min.css')}}">
     <title>Homepage | Dash Ui - Bootstrap 5 Admin Dashboard Template</title>
 </head>
 
@@ -51,21 +51,21 @@
 
     <!-- Scripts -->
     <!-- Libs JS -->
-    <script src="./assets/libs/jquery/dist/jquery.min.js"></script>
-    <script src="./assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="./assets/libs/jquery-slimscroll/jquery.slimscroll.min.js"></script>
-    <script src="./assets/libs/feather-icons/dist/feather.min.js"></script>
-    <script src="./assets/libs/prismjs/prism.js"></script>
-    <script src="./assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-    <script src="./assets/libs/dropzone/dist/min/dropzone.min.js"></script>
-    <script src="./assets/libs/prismjs/plugins/toolbar/prism-toolbar.min.js"></script>
-    <script src="./assets/libs/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js"></script>
+    <script src="{{ url('assets/libs/jquery/dist/jquery.min.js')}}"></script>
+    <script src="{{ url('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
+    <script src="{{ url('assets/libs/jquery-slimscroll/jquery.slimscroll.min.js')}}"></script>
+    <script src="{{ url('assets/libs/feather-icons/dist/feather.min.js')}}"></script>
+    <script src="{{ url('assets/libs/prismjs/prism.js')}}"></script>
+    <script src="{{ url('assets/libs/apexcharts/dist/apexcharts.min.js')}}"></script>
+    <script src="{{ url('assets/libs/dropzone/dist/min/dropzone.min.js')}}"></script>
+    <script src="{{ url('assets/libs/prismjs/plugins/toolbar/prism-toolbar.min.js')}}"></script>
+    <script src="{{ url('assets/libs/prismjs/plugins/copy-to-clipboard/prism-copy-to-clipboard.min.js')}}"></script>
 
 
 
 
     <!-- Theme JS -->
-    <script src="./assets/js/theme.min.js"></script>
+    <script src="{{ url('assets/js/theme.min.js')}}"></script>
 
 
 

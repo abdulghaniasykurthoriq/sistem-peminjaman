@@ -7,10 +7,10 @@
             <div>
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="mb-2 mb-lg-0">
-                        <h3 class="mb-0  text-white">Data Admin</h3>
+                        <h3 class="mb-0  text-white">Data Barang</h3>
                     </div>
                     <div>
-                        <a href="{{ route('admin.create')}}" class="btn btn-white">Create New Admin</a>
+                        <a href="{{ route('items.create')}}" class="btn btn-white">Create New Items</a>
                     </div>
                 </div>
             </div>
@@ -27,29 +27,34 @@
                     <table class="table text-nowrap mb-0">
                         <thead class="table-light">
                             <tr>
-                                <th>Nama</th>
-                                <th>Email</th>
-                                <th>Jabatan</th>
-                                <th>Aksi</th>
+                                <th>Lab</th>
+                                <th>Nama</th> 
+                                <th>Jenis</th>
+                                <th>Stock</th>
+                                <th>Dipinjam</th>
+                                <th></th>
+
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($admin as $item)
+                            @foreach ($data->items as $item)
                             <tr>
                                 <td class="align-middle">
-                                {{ $item->name }}
+                                {{ $item->lab->name }}
                                 </td>
-                                <td class="align-middle">{{ $item->email }}</td>
-                                <td class="align-middle"><span class="badge bg-warning">{{ $item->admin->jabatan }}</span></td>
-                                <td class="align-middle d-flex">
-                                    <a href="{{ route('admin.edit', ['id' => $item->id])}}">
-                                        <button class="btn btn-primary btn-sm">update</button>                                    
-                                    </a>
+                                <td class="align-middle">{{ $item->name }}</td>
+                                <td class="align-middle">{{ $item->type }}</td>
+                                <td class="align-middle">{{ $item->stock }}</td>
+                                <td class="align-middle">{{ $item->borrowed }}</td>
 
-                                    <form method="POST" action="{{ route('admin.destroy', ['id' => $item->id]) }}">
-                                        @method('delete')
+                                <td class="align-middle d-flex">
+                                    {{-- <a href="{{ route('items.edit', ['id' => $item->id])}}">
+                                        <button class="btn btn-primary btn-sm">pinjam</button>                                    
+                                    </a> --}}
+
+                                    <form method="POST" action="{{ route('itemslab.addToCart', ['id' => $item->id]) }}">
                                         @csrf
-                                        <button class="btn btn-danger btn-sm">delete</button>
+                                        <button class="btn btn-primary btn-sm">add to cart</button>
                                     </form>
 
                                 </td>

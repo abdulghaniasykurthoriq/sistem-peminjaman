@@ -5,14 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Lab extends Model
+class Items extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'lab_id',
         'name',
+        'type',
+        'stock',
+        'borrowed',
     ];
-    public function items()
+    public function lab()
     {
-        return $this->hasMany(Items::class);
+        return $this->belongsTo(Lab::class);
     }
 }
