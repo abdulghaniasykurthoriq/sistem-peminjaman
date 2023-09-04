@@ -92,26 +92,34 @@
             @if(Auth::user()->role == 'admin')
 
             <li class="nav-item">
-                <a class="nav-link " href="/items">
+                <a class="nav-link" href="{{route('items.index')}}">
                     <i data-feather="sidebar" class="nav-icon icon-xs me-2">
                     </i>
                     Barang
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="./pages/layout.html">
+                <a class="nav-link" href="{{route('items.request_pinjaman')}}">
                     <i data-feather="sidebar" class="nav-icon icon-xs me-2">
                     </i>
-                    Pengembalian
+                    Request Peminjaman
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link " href="./pages/layout.html">
+                <a class="nav-link" href="{{route('items.peminjaman')}}">
                     <i data-feather="sidebar" class="nav-icon icon-xs me-2">
                     </i>
                     Peminjaman
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{{route('items.pengembalian')}}">
+                    <i data-feather="sidebar" class="nav-icon icon-xs me-2">
+                    </i>
+                    Pengembalian
+                </a>
+            </li>
+            
             @endif
 
             @if(Auth::user()->role == 'mahasiswa')
@@ -130,6 +138,21 @@
                     My Cart
                 </a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link " href="{{ route('itemslab.peminjaman') }}">
+                    <i data-feather="sidebar" class="nav-icon icon-xs me-2">
+                    </i>
+                    Peminjaman
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="./pages/layout.html">
+                    <i data-feather="sidebar" class="nav-icon icon-xs me-2">
+                    </i>
+                    Pengembalian
+                </a>
+            </li>
+            
             @endif
 
             

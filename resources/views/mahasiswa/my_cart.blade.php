@@ -11,7 +11,7 @@
                             <h3 class="mb-0  text-white">Items Lab</h3>
                         </div>
                         <div>
-                            
+
                         </div>
                     </div>
                 </div>
@@ -28,7 +28,7 @@
                             <!-- heading -->
                             <div class="d-flex justify-content-between align-items-center mb-3">
                                 <div>
-                                    <h4 class="mb-0">Lab {{ $item->item->name }}</h4>
+                                    <h4 class="mb-0">Lab {{ $item->item->lab->name }}</h4>
                                 </div>
                                 <div class="icon-shape icon-md bg-light-primary text-primary rounded-2">
                                     <i class="bi bi-briefcase fs-4"></i>
@@ -36,12 +36,22 @@
                             </div>
                             <!-- project number -->
                             <div>
-                                
+
                                 <h1 class="fw-bold">{{ $item->item->name }}</h1>
                                 <div class="d-flex">
-                                    <button class="btn btn-primary btn-sm"> + </button>
-                                    <span class="text-dark mx-2">1</span>
-                                    <button class="btn btn-danger btn-sm"> - </button>
+                                    <form method="POST"
+                                        action="{{ route('itemslab.add_item_my_cart', ['id' => $item->id]) }}">
+                                        @csrf
+                                        <button class="btn btn-primary btn-sm"> + </button>
+
+                                    </form>
+                                    <span class="text-dark mx-2"> {{ $item->quantity }} </span>
+                                    <form method="POST"
+                                        action="{{ route('itemslab.destroy_my_cart', ['id' => $item->id]) }}">
+                                        @method('delete')
+                                        @csrf
+                                        <button class="btn btn-danger btn-sm">-</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -49,7 +59,13 @@
 
                 </div>
             @endforeach
-
+            @if (!$myCart->isEmpty())
+            <form method="POST" action="{{ route('itemslab.checkout') }}">
+                @csrf
+                <button class="btn btn-primary my-2"> Checkout </button>
+            </form>
+            @endif
+            
         </div>
     </div>
 @endsection

@@ -17,4 +17,8 @@ class Admin extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function lab()
+    {
+        return $this->belongsTo(Lab::class,'lab_id');
+    }
 }

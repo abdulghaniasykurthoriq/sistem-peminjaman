@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin;
 use App\Models\Lab;
 use App\Models\Mahasiswa;
+use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -13,9 +14,14 @@ class SuperAdminController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function dashboard()
     {
-        //
+    
+        $transactions = Transaction::with(['item.lab', 'user'])->get();
+        // dd($transactions);
+            return view('superadmin.index',[
+                'data' => $transactions
+            ]);  
     }
     public function admin()
     {

@@ -168,7 +168,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-    ])->toArray(),
+        Tymon\JWTAuth\Providers\LaravelServiceProvider::class
+        ])->toArray(),
 
     /*
     |--------------------------------------------------------------------------
@@ -183,6 +184,9 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'Example' => App\Facades\Example::class,
-    ])->toArray(),
+        'JWTAuth' => Tymon\JWTAuth\Facedes\JWTAuth::class,
+        'JWTFactory' => Tymon\JWTAuth\Facedes\JWTFactory::class,
+
+        ])->toArray(),
 
 ];
