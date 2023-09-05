@@ -15,14 +15,11 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(['auth:api'])->group(function () {
     Route::get('/items', [ItemController::class, 'index']);
+    Route::post('/items', [ItemController::class, 'store']);
+    Route::put('/items/{id}', [ItemController::class, 'update']);
+    Route::delete('/items/{id}', [ItemController::class, 'destroy']);
 });
-// Route::group(['middleware' => 'auth:api'], function () {
-//     Route::get('/items', function () {
-//         return response()->json([
-//             'message' => 'item q',
-//         ]);
-//     });
-// });

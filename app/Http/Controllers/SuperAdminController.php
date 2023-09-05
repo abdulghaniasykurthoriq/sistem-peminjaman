@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Items;
 use App\Models\Lab;
 use App\Models\Mahasiswa;
 use App\Models\Transaction;
@@ -18,9 +19,20 @@ class SuperAdminController extends Controller
     {
     
         $transactions = Transaction::with(['item.lab', 'user'])->get();
+        $totalSedangPinjam = Transaction::where('status','accept')->count();
+
+        $totalItems = Items::sum('stock');
+
+        $totalAdmin = Admin::count();
+
+
+
         // dd($transactions);
             return view('superadmin.index',[
-                'data' => $transactions
+                'data' => $transactions,
+                'total_items' => $totalItems ,
+                'total_admin' => $totalAdmin ,
+                'items_sedang_dipinjam' => $totalSedangPinjam
             ]);  
     }
     public function admin()

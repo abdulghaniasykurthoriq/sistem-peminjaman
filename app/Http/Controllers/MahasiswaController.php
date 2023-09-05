@@ -123,11 +123,12 @@ class MahasiswaController extends Controller
             }
             $cartItem->delete();
         }
-        dd('data pindah ke transaction');
+        // dd('data pindah ke transaction');
+        return redirect()->route('itemslab.peminjaman');
     }
 
     public function peminjaman(){
-        $transaction = Transaction::with(['item','user'])->get();
+        $transaction = Transaction::with(['item','user'])->where('user_id',Auth::user()->id)->get();
         // dd($transaction);
         return view('mahasiswa.peminjaman',[
             'data' => $transaction

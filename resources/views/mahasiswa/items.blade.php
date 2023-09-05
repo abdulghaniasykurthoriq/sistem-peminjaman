@@ -9,9 +9,6 @@
                     <div class="mb-2 mb-lg-0">
                         <h3 class="mb-0  text-white">Data Barang</h3>
                     </div>
-                    <div>
-                        <a href="{{ route('items.create')}}" class="btn btn-white">Create New Items</a>
-                    </div>
                 </div>
             </div>
         </div>

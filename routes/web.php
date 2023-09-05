@@ -1,36 +1,17 @@
 <?php
-
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\SuperAdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
-
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 Auth::routes(['verify' => true]);
-
-Route::get('/mahasiswa', function () {
-    return view('admin.mahasiswa');
-});
-
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/dashboard', [SuperAdminController::class, 'dashboard'])->name('dashboard');
-
 
     Route::middleware(['checkUserRole:superadmin'])->group(function () {
         Route::get('/admin', [SuperAdminController::class, 'admin'])->name('admin.index');
@@ -47,6 +28,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::get('/mahasiswa/{id}/edit', [SuperAdminController::class, 'edit_mahasiswa'])->name('mahasiswa.edit');
         Route::patch('/mahasiswa/{id}/update', [SuperAdminController::class, 'update_mahasiswa'])->name('mahasiswa.update');
     });
+
     Route::middleware(['checkUserRole:admin'])->group(function () {
         Route::get('/items', [AdminController::class, 'index'])->name('items.index');
         Route::get('/items-create', [AdminController::class, 'create'])->name('items.create');
@@ -61,12 +43,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('/peminjaman/{id}/deny}', [AdminController::class, 'deny_pinjaman'])->name('items.deny_pinjaman');
         Route::post('/peminjaman/{id}/done}', [AdminController::class, 'done_pinjaman'])->name('items.done_pinjaman');
 
-
         Route::get('/pengembalian/admin', [AdminController::class, 'pengembalian'])->name('items.pengembalian');
-        
-
-
     });
+
     Route::middleware(['checkUserRole:mahasiswa'])->group(function () {
         Route::get('/items-lab', [MahasiswaController::class, 'index'])->name('itemslab.index');
         Route::get('/items-lab/{item}', [MahasiswaController::class, 'items'])->name('itemslab.items');

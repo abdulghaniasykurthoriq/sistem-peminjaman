@@ -15,27 +15,30 @@ class AdminController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $userId = Auth::user()->id;
-        $admin = User::with('admin')
-            ->where('id', $userId)
-            ->first();
-
-        if (!$admin) {
-            return abort(403);
-        }
-        $lab = Lab::find($admin->admin->lab_id);
-        if (!$lab) {
-            return abort(403);
-        }
-        $data = Items::where('lab_id', $lab->id)
-            ->with('lab')
-            ->get();
-        return view('admin.items', [
-            'data' => $data,
-            'admin' => $lab,
-        ]);
+{
+    $user = Auth::user();
+    
+    // Periksa apakah pengguna adalah admin
+    if ($user->role != 'admin') {
+        return abort(403);
     }
+
+    // Dapatkan lab terkait dengan admin
+    $lab = $user->admin->lab;
+
+    if (!$lab) {
+        return abort(403);
+    }
+
+    // Dapatkan data item yang terkait dengan lab
+    $items = Items::where('lab_id', $lab->id)->get();
+
+    return view('admin.items', [
+        'data' => $items,
+        'admin' => $user,
+    ]);
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -115,11 +118,36 @@ class AdminController extends Controller
     }
     public function accept_pinjaman($id)
     {
-        $transaction = Transaction::find($id);
-        $transaction->status = 'accept';
-        $transaction->save();
-        return redirect()->route('items.request_pinjaman');
+        $transaction = Transaction::with('item')->find($id);
+    
+        if ($transaction) {
+            // Pastikan stok mencukupi sebelum mengurangkan
+            if ($transaction->item->stock > 0) {
+                $transaction->status = 'accept';
+    
+                // Mengurangkan stok item
+                $transaction->item->stock = $transaction->item->stock - 1;
+                $transaction->item->borrowed = $transaction->item->borrowed + 1;
+
+    
+                // Simpan perubahan dalam transaksi dan item
+                try {
+                    $transaction->save();
+                    $transaction->item->save();
+                } catch (\Exception $e) {
+                    // Tangani kesalahan jika gagal menyimpan
+                    return redirect()->route('items.request_pinjaman')->with('error', 'Gagal menyimpan perubahan.');
+                }
+    
+                return redirect()->route('items.request_pinjaman')->with('success', 'Transaksi diterima.');
+            } else {
+                return redirect()->route('items.request_pinjaman')->with('error', 'Stok tidak mencukupi.');
+            }
+        } else {
+            return redirect()->route('items.request_pinjaman')->with('error', 'Transaksi tidak ditemukan.');
+        }
     }
+    
     public function deny_pinjaman($id)
     {
         $transaction = Transaction::find($id);
@@ -129,10 +157,34 @@ class AdminController extends Controller
     }
     public function done_pinjaman($id)
     {
-        $transaction = Transaction::find($id);
-        $transaction->status = 'done';
-        $transaction->save();
-        return redirect()->route('items.peminjaman');
+        $transaction = Transaction::with('item')->find($id);
+    
+        if ($transaction) {
+            // Pastikan stok mencukupi sebelum mengurangkan
+            if ($transaction->item) {
+                $transaction->status = 'done';
+    
+                // Mengurangkan stok item
+                $transaction->item->stock = $transaction->item->stock + 1;
+                $transaction->item->borrowed = $transaction->item->borrowed - 1;
+
+    
+                // Simpan perubahan dalam transaksi dan item
+                try {
+                    $transaction->save();
+                    $transaction->item->save();
+                } catch (\Exception $e) {
+                    // Tangani kesalahan jika gagal menyimpan
+                    return redirect()->route('items.peminjaman')->with('error', 'Gagal menyimpan perubahan.');
+                }
+    
+                return redirect()->route('items.peminjaman')->with('success', 'Transaksi diterima.');
+            } else {
+                return redirect()->route('items.peminjaman')->with('error', 'Stok tidak mencukupi.');
+            }
+        } else {
+            return redirect()->route('items.peminjaman')->with('error', 'Transaksi tidak ditemukan.');
+        }
     }
     public function pengembalian()
     {

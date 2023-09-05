@@ -145,13 +145,6 @@
                     Peminjaman
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link " href="./pages/layout.html">
-                    <i data-feather="sidebar" class="nav-icon icon-xs me-2">
-                    </i>
-                    Pengembalian
-                </a>
-            </li>
             
             @endif
 
