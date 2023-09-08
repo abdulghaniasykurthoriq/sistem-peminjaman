@@ -18,8 +18,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(['auth:api'])->group(function () {
+
     Route::get('/items', [ItemController::class, 'index']);
     Route::post('/items', [ItemController::class, 'store']);
     Route::put('/items/{id}', [ItemController::class, 'update']);
+<<<<<<< HEAD
     Route::delete('/items/{id}', [ItemController::class, 'delete']);
 });
+=======
+    Route::delete('/items/{id}', [ItemController::class, 'destroy']);
+});
+>>>>>>> 34823d8 (perubahan pada respon error login)
