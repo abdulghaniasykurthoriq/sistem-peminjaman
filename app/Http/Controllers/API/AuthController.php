@@ -23,7 +23,10 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
         if($validator->fails()){
-            return response()->json($validator->errors(), 422);
+            return response()->json([
+                'status'=>false,
+                'massage'=>$validator->errors()
+            ], 422);
         }
         if (!($token = Auth::guard('api')->attempt([
             'email' => $request->email,
