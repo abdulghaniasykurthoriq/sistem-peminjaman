@@ -47,7 +47,7 @@ class ItemController extends Controller
         if (!$request->name) {
             return response()->json([
                 'status' => false,
-                'message' => 'Parameter `name` ditemukan'
+                'message' => 'Parameter `name` tidak ditemukan'
             ], 400);
         }
 
