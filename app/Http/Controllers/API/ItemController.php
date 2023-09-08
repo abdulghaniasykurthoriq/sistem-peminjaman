@@ -65,22 +65,36 @@ class ItemController extends Controller
             'data' => $item
         ]);
     }
-    public function destroy($id){
+    // public function destroy($id){
         
-        $item = Items::find($id);
+    //     $item = Items::find($id);
 
-        if(!$item){
+    //     if(!$item){
+    //         return response()->json([
+    //             'message' => 'gada datanya',
+    //         ]);
+    //     }
+    //      $item->delete();
+     
+    //     return response()->json([
+    //         'message' => 'berhasil dihaps',
+    //     ]);
+    // }
+        function delete($id)  {
+            $item = Items::find($id);
+
+            if (!$item){
+                return response()->json([
+                    'status'=> false,
+                    'message' => 'Item Tidak Ditemukan'
+                ]);
+
+            }
+            $item->delete();
             return response()->json([
-                'message' => 'gada datanya',
+                'message' => 'Item Berhasil Dihapus'
             ]);
         }
-         $item->delete();
-     
-        return response()->json([
-            'message' => 'berhasil dihaps',
-        ]);
-    }
-
 
 
 }
