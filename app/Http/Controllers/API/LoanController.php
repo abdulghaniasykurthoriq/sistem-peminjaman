@@ -11,8 +11,9 @@ class LoanController extends Controller
     private function history_read()
     {
         $history = history::all();
+        $user = Auth::user();
 
-        if (!$history && Auth::user()->name)
+        if (!$history)
         {
             return response()->json(
             [
@@ -20,7 +21,10 @@ class LoanController extends Controller
                 'error_pesan' => 'TIDAK ADA HISTORY',
             ]);
         }
-
-        return response()->json($history, 200);
+        
+        if($user->name)
+        {
+            return response()->json($history, 200);
+        }   
     } 
 }
