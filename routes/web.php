@@ -29,7 +29,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::patch('/mahasiswa/{id}/update', [SuperAdminController::class, 'update_mahasiswa'])->name('mahasiswa.update');
     });
 
-    Route::middleware(['checkUserRole:admin'])->group(function () {
+    Route::middleware(['checkUserRole:superadmin,admin'])->group(function () {
         Route::get('/items', [AdminController::class, 'index'])->name('items.index');
         Route::get('/items-create', [AdminController::class, 'create'])->name('items.create');
         Route::post('/items', [AdminController::class, 'store'])->name('items.store');

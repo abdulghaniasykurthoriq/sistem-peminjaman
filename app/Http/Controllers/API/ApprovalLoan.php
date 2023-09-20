@@ -3,18 +3,20 @@
 namespace App\Http\Controllers\API;
 use App\Models\Items;
 
-namespace App\Http\Controllers\API;
+// namespace App\Http\Controllers\API;
 
 
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Validator;
+// use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Validator;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+
+// use Illuminate\Http\Request;
 
 class ApprovalLoan extends Controller
 {
-    public function persetujuan(){
+    public function persetujuan($id){
 
         $items = Items::all();
         $item = Items::find($id);
